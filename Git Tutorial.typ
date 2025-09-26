@@ -1,4 +1,12 @@
+// #set page(
+//   width: 8.5in,
+//   height: auto
+// )
+
 #set heading(numbering: "1.")
+
+#show link: set text(fill: blue)
+#show link: underline
 
 = Preface
 
@@ -67,7 +75,6 @@ figure this out yourself. Hint: Google "install git on \<distro\> linux"
 ```bash
 git config --global user.name "<your name>"
 git config --global user.email "<your email>"
-ssh-keygen -t ed25519 -C "<your email>"
 ```
 
 = GitHub
@@ -78,6 +85,44 @@ Go to https://github.com/join. Use your *personal email address*.
 
 Fill in the form, and you're done. They'll probably send you an email asking you
 for verification or something.
+
+== Setting up your SSH Keys
+
+#block(
+  fill: luma(230),
+  radius: 0.5em,
+  inset: 1em,
+  width: 100%
+)[You can consider an SSH key as a type of fancy password that allows for your
+  computer to talk to GitHub. It uses cryptography (fancy math) to "prove" to
+  GitHub that you are who you say you are.]
+
+The following command will create an SSH key for you. You'll be prompted a few
+times, but you can just hit enter on each prompt to accept the defaults. If you
+get an error, you should try just running `ssh-keygen` with no arguments.
+
+```bash
+ssh-keygen -t ed25519 -C "<your email>"
+```
+
+Next, you'll need to `cat` the public key. The command to do so is:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Copy the output. The below image shows an example of what the output should look
+like, and the highlighted text is what you should copy.
+
+#image("cat.png")
+
++ Go to https://github.com/settings/keys.
++ Click "New SSH key".
++ Paste the key into the box.
++ Give it a name.
++ Click "Add SSH key".
+
+#image("new ssh key.png", height: 40%)
 
 == Creating a GitHub Repository
 
@@ -112,7 +157,7 @@ mkdir -p Documents/code
 
 Go to https://github.com/new. You'll see a form like this:
 
-#image("Create Repo.png", height: 40%)
+#image("Create Repo.png")
 
 Fill it in, then click "Create repository". Hint: It's at the bottom of the 
 page, and it's *very green*.
@@ -121,7 +166,7 @@ page, and it's *very green*.
 
 Copy the URL of your repository. It'll look something like this:
 
-#image("GitHub Repo Setup.png", height: 40%)
+#image("GitHub Repo Setup.png")
 
 Next, go to your terminal and run:
 
